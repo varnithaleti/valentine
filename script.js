@@ -12,26 +12,36 @@ const messages = [
     "nice try, rakshu hehe!",
     "Error 404: 'No' not found",
     "is your mouse broken? 😉",
-    "say 'Yes' pwease..❤️",];
+    "say 'Yes' pwease..❤️",
+    "don't be like that! 🥺"
+];
 
 function moveNoButton() {
-    const x = Math.random() * (window.innerWidth - noBtn.offsetWidth - 40) + 20;
-    const y = Math.random() * (window.innerHeight - noBtn.offsetHeight - 40) + 20;
-
+    // Switch to fixed positioning so it moves relative to the whole screen
     noBtn.style.position = 'fixed';
-    noBtn.style.left = `${x}px`;
-    noBtn.style.top = `${y}px`;
+    
+    const padding = 50; // Keep away from edges
+    const maxX = window.innerWidth - noBtn.offsetWidth - padding;
+    const maxY = window.innerHeight - noBtn.offsetHeight - padding;
 
-    // Secret Message update
-    const randomMsg = messages[Math.floor(Math.random() * messages.length)];
-    statusText.innerText = randomMsg;
+    const randomX = Math.floor(Math.random() * (maxX - padding)) + padding;
+    const randomY = Math.floor(Math.random() * (maxY - padding)) + padding;
+
+    noBtn.style.left = randomX + 'px';
+    noBtn.style.top = randomY + 'px';
+
+    // Update secret message
+    if (statusText) {
+        const randomMsg = messages[Math.floor(Math.random() * messages.length)];
+        statusText.innerText = randomMsg;
+    }
 
     triggerMadPhoto();
 }
 
 function triggerMadPhoto() {
     madPhoto.classList.remove('flash-animation');
-    void madPhoto.offsetWidth; 
+    void madPhoto.offsetWidth; // Trigger reflow
     madPhoto.classList.add('flash-animation');
 }
 
@@ -46,8 +56,12 @@ function showSlides() {
     setTimeout(showSlides, 3000); 
 }
 
+// Add listeners for both mouse (PC) and touch (mobile)
 noBtn.addEventListener('mouseover', moveNoButton);
-noBtn.addEventListener('click', moveNoButton);
+noBtn.addEventListener('touchstart', (e) => {
+    e.preventDefault(); // Prevents clicking the button on mobile
+    moveNoButton();
+});
 
 yesBtn.addEventListener('click', () => {
     confetti({
