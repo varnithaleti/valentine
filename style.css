@@ -24,6 +24,8 @@ body {
     backdrop-filter: blur(5px);
     max-width: 90%;
     width: 400px;
+    position: relative; /* This makes the 'No' button stay inside the card */
+    overflow: hidden;    /* Prevents the button from ever leaving the edges */
     transition: opacity 0.5s ease;
 }
 
@@ -76,7 +78,9 @@ button {
 #no-btn {
     background-color: #ddd;
     color: #333;
-    transition: left 0.2s ease, top 0.2s ease; /* Smooth movement */
+    position: absolute; /* Changed from fixed */
+    z-index: 1000;
+    transition: all 0.2s ease; /* Smooth glide instead of a jump */
 }
 
 .subtext {
