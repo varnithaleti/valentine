@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Question for You...</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.exe"></script>
+</head>
+<body>
+
+    <img id="mad-photo" src="mad.jpg" alt="Mad face">
+
+    <div class="container">
+        <div class="card" id="question-card">
+            <img src="header.png" alt="Cute character" class="header-img">
+            <h1>Rakshu, will you be my Valentine?</h1>
+            
+            <div class="buttons">
+                <button id="yes-btn">Yes 😍</button>
+                <button id="no-btn" style="position: absolute;">No 😈</button>
+            </div>
+            <p class="subtext">"No" seems a bit shy...</p>
+        </div>
+
+        <div class="card hidden" id="success-card">
+            <h1>YAY! Happy Valentine's Day! ❤️</h1>
+            <div class="slideshow-container">
+                <img src="us.jpg" class="couple-img fade">
+                <img src="us1.jpg" class="couple-img fade">
+                <img src="us2.jpg" class="couple-img fade">
+                <img src="us3.jpg" class="couple-img fade">
+                <img src="us4.jpg" class="couple-img fade">
+            </div>
+        </div>
+
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
