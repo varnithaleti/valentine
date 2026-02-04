@@ -19,29 +19,31 @@ const messages = [
 ];
 
 function moveNoButton() {
-    // 1. Make No button absolute so it can jump
+    // 1. Make No button absolute so it can jump anywhere
     noBtn.style.position = 'absolute';
-
+    
     // 2. Get playground dimensions
     const pRect = playground.getBoundingClientRect();
     const bRect = noBtn.getBoundingClientRect();
-
-    // 3. Calculate max coordinates within playground
-    const maxX = pRect.width - bRect.width;
-    const maxY = pRect.height - bRect.height;
-
-    const randomX = Math.floor(Math.random() * maxX);
-    const randomY = Math.floor(Math.random() * maxY);
-
-    // 4. Apply new position
+    
+    // 3. Add padding to keep button away from edges
+    const padding = 20;
+    const maxX = pRect.width - bRect.width - (padding * 2);
+    const maxY = pRect.height - bRect.height - (padding * 2);
+    
+    // 4. Generate random position within safe bounds
+    const randomX = Math.floor(Math.random() * maxX) + padding;
+    const randomY = Math.floor(Math.random() * maxY) + padding;
+    
+    // 5. Apply new position
     noBtn.style.left = randomX + 'px';
     noBtn.style.top = randomY + 'px';
-
-    // 5. Inflate Yes button
-    yesScale += 0.2; // Grows 20% each time
+    
+    // 6. Inflate Yes button
+    yesScale += 0.15; // Grows 15% each time
     yesBtn.style.transform = `scale(${yesScale})`;
-
-    // 6. Flash mad photo and change message
+    
+    // 7. Flash mad photo and change message
     triggerMadPhoto();
     statusText.innerText = messages[Math.floor(Math.random() * messages.length)];
 }
@@ -54,9 +56,11 @@ function triggerMadPhoto() {
 
 function showSlides() {
     let slides = document.getElementsByClassName("couple-img");
-    for (let i = 0; i < slides.length; i++) slides[i].style.display = "none";
+    for (let i = 0; i < slides.length; i++) {
+        slides[i].style.display = "none";
+    }
     slideIndex++;
-    if (slideIndex > slides.length) slideIndex = 1;
+    if (slideIndex > slides.length) {slideIndex = 1}
     slides[slideIndex-1].style.display = "block";
     setTimeout(showSlides, 3000);
 }
@@ -74,6 +78,7 @@ yesBtn.addEventListener('click', () => {
         spread: 90,
         origin: { y: 0.6 }
     });
+    
     questionCard.style.display = 'none';
     successCard.classList.remove('hidden');
     showSlides();
