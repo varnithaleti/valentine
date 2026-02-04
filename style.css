@@ -29,6 +29,7 @@ body {
     flex-direction: column;
     align-items: center;
     transition: opacity 0.5s ease;
+    overflow: visible;
 }
 
 .hidden { 
