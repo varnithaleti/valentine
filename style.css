@@ -104,7 +104,7 @@ button {
     transform: translate(-50%, -50%);
     max-width: 85vw;
     max-height: 85vh;
-    z-index: 50;
+    z-index: 9999; /* Way higher than everything else */
     opacity: 0;
     pointer-events: none;
 }
