@@ -5,7 +5,7 @@ body {
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background-color: #f3bdbd;
+    background-color: #e8cdd4;
     font-family: 'Arial', sans-serif;
     overflow: hidden;
 }
@@ -13,7 +13,7 @@ body {
 .container {
     text-align: center;
     position: relative;
-    z-index: 100; /* Keeps the card above the background flash */
+    z-index: 100;
 }
 
 .card {
@@ -24,9 +24,9 @@ body {
     backdrop-filter: blur(5px);
     max-width: 90%;
     width: 400px;
-    position: relative; /* This makes the 'No' button stay inside the card */
-    overflow: hidden;    /* Prevents the button from ever leaving the edges */
+    position: relative; /* This keeps the No button inside the white part */
     transition: opacity 0.5s ease;
+    overflow: hidden; /* Ensures nothing spills out of the rounded corners */
 }
 
 .hidden {
@@ -49,9 +49,9 @@ h1 {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 20px;
+    gap: 30px; /* Separates the buttons initially */
     margin-top: 30px;
-    min-height: 60px;
+    min-height: 200px; /* Creates enough "playground" area for the No button */
     position: relative;
 }
 
@@ -62,35 +62,31 @@ button {
     border-radius: 50px;
     cursor: pointer;
     font-weight: bold;
-    z-index: 200; /* Ensure buttons stay on top */
+    z-index: 200;
+    transition: transform 0.3s ease, background-color 0.2s; /* Smooth inflation */
 }
 
 #yes-btn {
-    background-color: #e91e1e;
+    background-color: #e91e63;
     color: white;
-}
-
-#yes-btn:hover {
-    transform: scale(1.1);
-    background-color: #c21818;
 }
 
 #no-btn {
     background-color: #ddd;
     color: #333;
-    position: absolute; /* Changed from fixed */
-    z-index: 1000;
-    transition: all 0.2s ease; /* Smooth glide instead of a jump */
+    position: absolute; /* Allows it to jump around */
+    /* Start positions to separate from Yes */
+    right: 20px; 
 }
 
 .subtext {
-    margin-top: 30px;
+    margin-top: 20px;
     font-size: 0.9rem;
     color: #555;
     font-style: italic;
 }
 
-/* Flash Photo Styles */
+/* Flash Photo & Slideshow Styles remain the same */
 #mad-photo {
     position: fixed;
     top: 50%;
@@ -113,7 +109,6 @@ button {
     animation: flashInOut 1.2s ease-out forwards;
 }
 
-/* Slideshow Styles */
 .slideshow-container {
     position: relative;
     margin-top: 20px;
@@ -129,15 +124,8 @@ button {
     max-height: 100%;
     object-fit: contain;
     border-radius: 15px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
     display: none;
 }
 
-.fade {
-    animation: fadeEffect 1.5s;
-}
-
-@keyframes fadeEffect {
-    from {opacity: .4} 
-    to {opacity: 1}
-}
+.fade { animation: fadeEffect 1.5s; }
+@keyframes fadeEffect { from {opacity: .4} to {opacity: 1} }

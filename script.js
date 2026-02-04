@@ -4,8 +4,11 @@ const statusText = document.getElementById('status-text');
 const questionCard = document.getElementById('question-card');
 const successCard = document.getElementById('success-card');
 const madPhoto = document.getElementById('mad-photo');
+const buttonContainer = document.querySelector('.buttons');
 
 let slideIndex = 0;
+let inflationLevel = 1; // Starting scale for Yes button
+
 const messages = [
     "umm, let's talk about this...",
     "you missed! 💨",
@@ -13,33 +16,31 @@ const messages = [
     "Error 404: 'No' not found",
     "is your mouse broken? 😉",
     "say 'Yes' pwease..❤️",
-    "don't be like that! 🥺"
+    "better not say no...😈"
 ];
 
 function moveNoButton() {
-    // 1. Get the dimensions of the white card
-    const card = document.getElementById('question-card');
-    const cardWidth = card.offsetWidth;
-    const cardHeight = card.offsetHeight;
-
-    // 2. Get button dimensions
+    // 1. Calculate boundaries based on the container, not the window
+    const containerWidth = buttonContainer.offsetWidth;
+    const containerHeight = buttonContainer.offsetHeight;
     const btnWidth = noBtn.offsetWidth;
     const btnHeight = noBtn.offsetHeight;
 
-    // 3. Calculate max possible coordinates (card size minus button size)
-    // We add a small buffer (20px) so it doesn't touch the very edge
-    const maxX = cardWidth - btnWidth - 20;
-    const maxY = cardHeight - btnHeight - 20;
+    const maxX = containerWidth - btnWidth;
+    const maxY = containerHeight - btnHeight;
 
-    // 4. Generate random coordinates within the card
-    const randomX = Math.max(20, Math.floor(Math.random() * maxX));
-    const randomY = Math.max(20, Math.floor(Math.random() * maxY));
+    const randomX = Math.floor(Math.random() * maxX);
+    const randomY = Math.floor(Math.random() * maxY);
 
-    // 5. Apply the new position relative to the card
+    // 2. Move the No button within the white card
     noBtn.style.left = randomX + 'px';
     noBtn.style.top = randomY + 'px';
 
-    // Update the funny messages as before
+    // 3. Inflate the Yes button
+    inflationLevel += 0.15; // Grows by 15% each time
+    yesBtn.style.transform = `scale(${inflationLevel})`;
+
+    // 4. Update secret message
     if (statusText) {
         const randomMsg = messages[Math.floor(Math.random() * messages.length)];
         statusText.innerText = randomMsg;
@@ -50,7 +51,7 @@ function moveNoButton() {
 
 function triggerMadPhoto() {
     madPhoto.classList.remove('flash-animation');
-    void madPhoto.offsetWidth; // Trigger reflow
+    void madPhoto.offsetWidth; 
     madPhoto.classList.add('flash-animation');
 }
 
@@ -65,10 +66,9 @@ function showSlides() {
     setTimeout(showSlides, 3000); 
 }
 
-// Add listeners for both mouse (PC) and touch (mobile)
 noBtn.addEventListener('mouseover', moveNoButton);
 noBtn.addEventListener('touchstart', (e) => {
-    e.preventDefault(); // Prevents clicking the button on mobile
+    e.preventDefault(); 
     moveNoButton();
 });
 
